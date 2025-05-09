@@ -1,8 +1,10 @@
 import os
 from setuptools import setup, find_packages
 
+# 打包命令： python setup.py sdist bdist_wheel
+
 with open(
-    os.path.join(os.path.dirname(__file__), "requirements/common.txt"), "r"
+        os.path.join(os.path.dirname(__file__), "requirements/common.txt"), "r"
 ) as fh:
     requirements = fh.readlines()
 
@@ -11,7 +13,7 @@ DESCRIPTION = (
     "This is a lightweight library that works as a connector to Binance public API."
 )
 AUTHOR = "Binance"
-URL = "https://github.com/binance/binance-connector-python"
+URL = "https://github.com/yj-git/binance-connector-python"
 VERSION = None
 
 about = {}
