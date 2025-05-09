@@ -5,23 +5,27 @@ from binance.websocket.websocket_client import BinanceWebsocketClient
 
 class SpotWebsocketAPIClient(BinanceWebsocketClient):
     def __init__(
-        self,
-        stream_url="wss://ws-api.binance.com/ws-api/v3",
-        api_key=None,
-        api_secret=None,
-        on_message=None,
-        on_open=None,
-        on_close=None,
-        on_error=None,
-        on_ping=None,
-        on_pong=None,
-        timeout=None,
-        time_unit=None,
-        logger=None,
-        proxies: Optional[dict] = None,
+            self,
+            stream_url="wss://ws-api.binance.com/ws-api/v3",
+            api_key=None,
+            api_secret=None,
+            private_key=None,
+            private_key_pass=None,
+            on_message=None,
+            on_open=None,
+            on_close=None,
+            on_error=None,
+            on_ping=None,
+            on_pong=None,
+            timeout=None,
+            time_unit=None,
+            logger=None,
+            proxies: Optional[dict] = None,
     ):
         self.api_key = api_key
         self.api_secret = api_secret
+        self.private_key = private_key
+        self.private_key_pass = private_key_pass
 
         super().__init__(
             stream_url,
@@ -77,6 +81,13 @@ class SpotWebsocketAPIClient(BinanceWebsocketClient):
     from binance.websocket.spot.websocket_api._trade import get_open_oco_orders
 
     # User Data Stream
+    from binance.websocket.spot.websocket_api._user_data import subscribe_user_data
+    from binance.websocket.spot.websocket_api._user_data import unsubscribe_user_data
     from binance.websocket.spot.websocket_api._user_data import user_data_start
     from binance.websocket.spot.websocket_api._user_data import user_data_ping
     from binance.websocket.spot.websocket_api._user_data import user_data_stop
+
+    # Session
+    from binance.websocket.spot.websocket_api._session import logon
+    from binance.websocket.spot.websocket_api._session import status
+    from binance.websocket.spot.websocket_api._session import logout

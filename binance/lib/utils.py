@@ -5,7 +5,7 @@ import uuid
 from urllib.parse import urlparse
 from collections import OrderedDict
 from urllib.parse import urlencode
-from binance.lib.authentication import hmac_hashing
+from binance.lib.authentication import hmac_hashing, ed25519_signature
 from binance.error import (
     ParameterRequiredError,
     ParameterValueError,
@@ -94,7 +94,26 @@ def purge_map(map: map):
     return {k: v for k, v in map.items() if v is not None and v != "" and v != 0}
 
 
-def websocket_api_signature(api_key: str, api_secret: str, parameters: dict):
+# websocket_api_signature兼容ed25519，如果传入private_key默认用ed25519 create by cyj
+def websocket_api_signature(api_key: str, api_secret: str, private_key: str, parameters: dict, private_key_pass: str = None):
+    """Generate signature for websocket API
+    Args:
+        api_key (str): API key.
+        api_secret (str): API secret.
+        private_key (str): API private_key ed25519.
+        private_key_pass (str): API private_key_pass ed25519.
+        params (dict): Parameters.
+    """
+
+    if private_key:
+        return websocket_api_ed25519_signature(api_key=api_key, private_key=private_key, parameters=parameters, private_key_pass=private_key_pass)
+    else:
+        return websocket_api_hmac_hashing_signature(api_key=api_key, api_secret=api_secret, parameters=parameters)
+    return parameters
+
+
+# websocket_api_signature hmac create by cyj
+def websocket_api_hmac_hashing_signature(api_key: str, api_secret: str, parameters: dict):
     """Generate signature for websocket API
     Args:
         api_key (str): API key.
@@ -113,6 +132,29 @@ def websocket_api_signature(api_key: str, api_secret: str, parameters: dict):
     parameters = OrderedDict(sorted(parameters.items()))
     parameters["signature"] = hmac_hashing(api_secret, urlencode(parameters))
 
+    return parameters
+
+
+# websocket_api_signature ed25519 create by cyj
+def websocket_api_ed25519_signature(api_key: str, private_key: str, parameters: dict, private_key_pass: str = None):
+    """Generate signature for websocket API
+    Args:
+        api_key (str): API key.
+        private_key (str): API private_key ed25519.
+        private_key_pass (str): API private_key_pass ed25519.
+        params (dict): Parameters.
+    """
+
+    if not api_key or not private_key:
+        raise WebsocketClientError(
+            "api_key and private_key are required for websocket API signature"
+        )
+
+    parameters["timestamp"] = get_timestamp()
+    parameters["apiKey"] = api_key
+
+    parameters = OrderedDict(sorted(parameters.items()))
+    parameters["signature"] = ed25519_signature(private_key=private_key, payload=urlencode(parameters), private_key_pass=private_key_pass).decode('ASCII')
     return parameters
 
 

@@ -92,7 +92,7 @@ def new_order(self, symbol: str, side: str, type: str, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "order.place",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
 
     self.send(payload)
@@ -169,7 +169,7 @@ def new_order_test(self, symbol: str, side: str, type: str, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "order.test",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
 
     self.send(payload)
@@ -255,7 +255,7 @@ def get_order(self, symbol: str, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "order.status",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
 
     self.send(payload)
@@ -336,7 +336,7 @@ def cancel_order(self, symbol: str, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "order.cancel",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
 
     self.send(payload)
@@ -523,7 +523,7 @@ def cancel_replace_order(
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "order.cancelReplace",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
     self.send(payload)
 
@@ -599,7 +599,7 @@ def get_open_orders(self, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "openOrders.status",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
     self.send(payload)
 
@@ -732,7 +732,7 @@ def cancel_open_orders(self, symbol: str, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "openOrders.cancelAll",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
     self.send(payload)
 
@@ -907,7 +907,7 @@ def new_oco_order(
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "orderList.place.oco",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
     self.send(payload)
 
@@ -1075,7 +1075,7 @@ def new_oto_order(
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "orderList.place.oto",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
     self.send(payload)
 
@@ -1276,7 +1276,7 @@ def new_otoco_order(
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "orderList.place.otoco",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
     self.send(payload)
 
@@ -1352,7 +1352,7 @@ def get_oco_order(self, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "orderList.status",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
     self.send(payload)
 
@@ -1466,7 +1466,7 @@ def cancel_oco_order(self, symbol: str, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "orderList.cancel",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
     self.send(payload)
 
@@ -1540,6 +1540,6 @@ def get_open_oco_orders(self, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "openOrderLists.status",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
     self.send(payload)

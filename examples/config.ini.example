@@ -8,3 +8,6 @@
 [keys]
 api_key=
 api_secret=
+ed25519_api_key =
+ed25519_private_key =
+ed25519_private_key_pass =

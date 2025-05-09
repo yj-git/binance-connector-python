@@ -7,6 +7,7 @@ from binance.websocket.spot.websocket_api import SpotWebsocketAPIClient
 from examples.utils.prepare_env import get_ed25519_api_key
 
 api_key, private_key, private_key_pass = get_ed25519_api_key()
+
 config_logging(logging, logging.DEBUG)
 
 
@@ -27,9 +28,11 @@ my_client = SpotWebsocketAPIClient(
     on_close=on_close,
 )
 
-my_client.account()
+my_client.logon()
 
-time.sleep(2)
+# my_client.subscribe_user_data()
+
+time.sleep(100)
 
 logging.info("closing ws connection")
-my_client.stop()
+# my_client.unsubscribe_user_data()

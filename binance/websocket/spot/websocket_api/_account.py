@@ -87,7 +87,7 @@ def account(self, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "account.status",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
 
     self.send(payload)
@@ -150,7 +150,7 @@ def order_rate_limit(self, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "account.rateLimits.orders",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
 
     self.send(payload)
@@ -234,7 +234,7 @@ def order_history(self, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "allOrders",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
 
     self.send(payload)
@@ -311,7 +311,7 @@ def oco_history(self, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "allOrderLists",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
 
     self.send(payload)
@@ -386,7 +386,7 @@ def my_trades(self, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "myTrades",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
 
     self.send(payload)
@@ -463,7 +463,7 @@ def prevented_matches(self, symbol: str, **kwargs):
     payload = {
         "id": parameters.pop("id", get_uuid()),
         "method": "myPreventedMatches",
-        "params": websocket_api_signature(self.api_key, self.api_secret, parameters),
+        "params": websocket_api_signature(api_key=self.api_key, api_secret=self.api_secret, private_key=self.private_key, private_key_pass=self.private_key_pass, parameters=parameters),
     }
 
     self.send(payload)
